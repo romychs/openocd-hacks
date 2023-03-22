@@ -1,3 +1,8 @@
+My modifications
+----------------
+* This fork to support WCH-LinkE-CH32V305 module.
+* Some code fixes for less warning count. Fixed some places of code, looks from my sight of view, like potential unsafe.
+
 Welcome to OpenOCD!
 ===================
 
