@@ -19,14 +19,15 @@
 #include <config.h>
 #endif
 #include <helper/log.h>
+//#include <helper/types.h>
 
 COMMAND_HANDLER(handle_foo_command)
 {
 	if (CMD_ARGC < 1 || CMD_ARGC > 2)
 		return ERROR_COMMAND_SYNTAX_ERROR;
 
-	uint32_t address;
-	COMMAND_PARSE_NUMBER(u32, CMD_ARGV[0], address);
+	//uint32_t address;
+	//COMMAND_PARSE_NUMBER(u32, CMD_ARGV[0], address);
 
 	const char *msg = "<unchanged>";
 	if (CMD_ARGC == 2) {
@@ -35,7 +36,7 @@ COMMAND_HANDLER(handle_foo_command)
 		msg = enable ? "enable" : "disable";
 	}
 
-	LOG_INFO("%s: address=0x%8.8" PRIx32 " enabled=%s", CMD_NAME, address, msg);
+	LOG_INFO("%s:  enabled=%s", CMD_NAME, msg);
 	return ERROR_OK;
 }
 

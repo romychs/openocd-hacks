@@ -45,7 +45,7 @@ extern unsigned char WriteNonFullPage(unsigned long iaddr,
 
 static int execute_fence(struct target *target);
 extern unsigned char riscvchip;
-extern int server_quit(void);
+//extern int server_quit(void);
 extern unsigned long ramaddr;
 uint32_t flashaddr=0;
 extern bool wchwlink;
@@ -328,7 +328,9 @@ static int flush_flash_data(struct target *target)
 	info->flash_offset = 0;
 	memset(info->flash_data,0,sizeof(info->flash_data));
 	}
+	return 0;
 }
+
 int write_flash_data(struct target *target, target_addr_t address,
 		uint32_t size, uint32_t count, uint8_t *buffer)
 {
@@ -2654,7 +2656,7 @@ static int assert_reset(struct target *target)
 		LOG_DEBUG("[wch] dcsr read fail!");
 	}
 	else{
-		LOG_DEBUG("[wch] read dcsr value is 0x%x", tmpDcsr);
+		LOG_DEBUG("[wch] read dcsr value is 0x%x", (unsigned int)tmpDcsr);
 		//enable ebreak in m&u mode
 		tmpDcsr = set_field(tmpDcsr, CSR_DCSR_EBREAKM, 1);
 		tmpDcsr = set_field(tmpDcsr, CSR_DCSR_EBREAKU, 1);		
@@ -4249,7 +4251,7 @@ static int write_memory(struct target *target, target_addr_t address,
 		{			
 			if(address>=0x08000000)
 				address-=0x08000000;
-			write_flash_data(target, address, size, count, buffer);			
+			write_flash_data(target, address, size, count, (uint8_t *)buffer);			
 		}
 		return ERROR_OK;
 	}else{

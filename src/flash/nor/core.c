@@ -744,7 +744,8 @@ int flash_write_unlock_verify(struct target *target, struct image *image,
 	uint32_t section_offset;
 	struct flash_bank *c;
 	int *padding;
-
+	binlen = 0;
+	startaddr = 0;
 	section = 0;
 	section_offset = 0;
 	memset(binbuf,0xff,1024*512);

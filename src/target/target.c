@@ -62,7 +62,7 @@
 
 
 extern unsigned char riscvchip;
-extern int wlink_reset();
+extern int wlink_reset(void);
 extern int wlink_quitreset(void);
 extern int wlink_verify(unsigned long length, unsigned char *buffer);
 static int target_read_buffer_default(struct target *target, target_addr_t address,
@@ -3350,9 +3350,8 @@ COMMAND_HANDLER(handle_reset_command)
 	return target_process_reset(CMD, reset_mode);
 }
 COMMAND_HANDLER(handle_wlink_reset_resume_command)
-{
-	
-	wlink_quitreset();
+{	
+	return wlink_quitreset();
 }
 
 COMMAND_HANDLER(handle_resume_command)
@@ -3818,7 +3817,7 @@ static COMMAND_HELPER(handle_verify_image_command_internal, enum verify_mode ver
 	int retval;
 	uint32_t checksum = 0;
 	uint32_t mem_checksum = 0;
-	int i;
+	// int i;
 	struct image image;
 
 	struct target *target = get_current_target(CMD_CTX);
@@ -3862,12 +3861,14 @@ static COMMAND_HELPER(handle_verify_image_command_internal, enum verify_mode ver
         uint8_t *buffer1;
 		uint8_t *buffer2;
 
+		buffer1 = 0;
+
 		length=image.sections[image.num_sections-1].size + image.sections[image.num_sections-1].base_address;
 		
 		
 		buffer2=malloc(length+256);
 		memset(buffer2,0xff,length);
-		for (i = 0; i < image.num_sections; i++) {
+		for (unsigned int i = 0; i < image.num_sections; i++) {
 
 			buffer1 = malloc(image.sections[i].size);
 			retval = image_read_section(&image, i, 0x0, image.sections[i].size, buffer1, &buf_cnt);
@@ -3889,7 +3890,9 @@ static COMMAND_HELPER(handle_verify_image_command_internal, enum verify_mode ver
 		int ret=wlink_verify( length-image.sections[0].base_address, &buffer2[image.sections[0].base_address]);
 	
 	free(buffer2);
-	free(buffer1);
+	if (buffer1 != 0) {
+		free(buffer1);
+	}
 	image_close(&image);
 	return ret;
 	

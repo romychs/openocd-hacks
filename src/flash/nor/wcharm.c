@@ -414,6 +414,7 @@ static int ch32x_erase(struct flash_bank *bank, int first, int last)
 		return ret;
 			
  }	
+ return 0;
 }
 
 static int ch32x_protect(struct flash_bank *bank, int set, int first, int last)
@@ -462,9 +463,9 @@ static int ch32x_write(struct flash_bank *bank, const uint8_t *buffer,
 		if(noloadflag)
 				return ERROR_OK;			
 		int ret=wlink_armwrite(buffer,bank->base + offset,count);				
-		return ret;				
+		return ret;
  }
-
+ return 0;
 }
 
 static int ch32x_get_device_id(struct flash_bank *bank, uint32_t *device_id)
@@ -536,7 +537,7 @@ static int ch32x_probe(struct flash_bank *bank)
 	uint32_t device_id;
 	int page_size;
 	uint32_t base_address = 0x08000000;
-    uint32_t rid=0;
+    //uint32_t rid;
 	ch32x_info->probed = 0;
 	ch32x_info->register_base = FLASH_REG_BASE_B0;
 	ch32x_info->user_data_offset = 10;
@@ -550,7 +551,7 @@ static int ch32x_probe(struct flash_bank *bank)
 		return retval;
 	
 	// LOG_INFO("device id = 0x%08" PRIx32 "", device_id);
-	rid=device_id & 0xfff ;
+	//rid=device_id & 0xfff ;
 	/* set page size, protection granularity and max flash size depending on family */
 	switch (device_id & 0xfff) {
 	case 0x410: /* medium density */

@@ -1,7 +1,13 @@
-My modifications
-----------------
+OpenOCD modifications
+=====================
+
 * This fork to support WCH-LinkE-CH32V305 module.
 * Some code fixes for less warning count. Fixed some places of code, looks from my sight of view, like potential unsafe.
+
+To supress compilation errors, edit CFLAGS variable in Makefile:
+
+CFLAGS = -g -O2 -Wno-error=pointer-sign  -Wno-error=sign-compare -Wno-error=unused-variable -Wno-error=incompatible-pointer-types
+
 
 Welcome to OpenOCD!
 ===================

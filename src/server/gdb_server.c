@@ -51,6 +51,8 @@
 #include <jtag/jtag.h>
 #include "rtos/rtos.h"
 #include "target/smp.h"
+#include "jtag/drivers/cmsis_dap.h"
+
 
 /**
  * @file
@@ -67,7 +69,7 @@ extern unsigned char riscvchip;
 extern uint8_t armchip;
 extern void wlink_armquitreset(struct cmsis_dap *dap);
 extern int wlink_address;
-int gdb_actual_connections;
+//int gdb_actual_connections;
 struct target_desc_format {
 	char *tdesc;
 	uint32_t tdesc_length;

@@ -23,7 +23,7 @@
 #include <target/algorithm.h>
 extern int wlink_erase(void);
 extern unsigned char riscvchip;
-extern int wlink_reset();
+extern int wlink_reset(void);
 extern void wlink_getromram(uint32_t *rom,uint32_t *ram);
 extern int wlink_write(const uint8_t *buffer, uint32_t offset, uint32_t count);
 extern int noloadflag;
@@ -166,7 +166,7 @@ static int ch32vx_probe(struct flash_bank *bank)
 	uint32_t ram=0;
 	int page_size;
 	uint32_t base_address = wlink_address;
-	uint32_t rid = 0;
+	// uint32_t rid = 0;
 	ch32vx_info->probed = 0;
 	/* read ch32 device id register */
 	int retval = ch32vx_get_device_id(bank, &device_id);
